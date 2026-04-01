@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Register — online donation</title>
+<link rel="stylesheet" href="css/style-new.css" />
+<!-- <link rel="stylesheet" href="css/register.css" /> -->
+</head>
+<body style="background:#f7fafc;">
+
+  <!-- NAVBAR -->
+  <header class="vc-header" style="position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(6px);box-shadow:0 2px 18px rgba(0,0,0,.06);">
+    <div class="vc-container header-inner" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0;">
+      <a class="vc-brand" href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:#e8f2ff;color:#2a62ff;font-weight:700;">OD</span>
+        <span class="vc-logo-text" style="font-weight:700;color:#111;">online donation</span>
+      </a>
+
+      <nav class="vc-nav" id="vc-nav" style="display:flex;align-items:center;gap:12px;">
+        <ul id="nav-links" style="display:flex;align-items:center;gap:16px;list-style:none;margin:0;padding:0;">
+          <li><a href="index.html" style="padding:8px 10px;color:#111;">Home</a></li>
+          <li><a href="donation.html" class="btn btn-primary" style="padding:8px 14px;border-radius:999px;">Donate</a></li>
+          <li><a href="feedback.html" style="padding:8px 10px;color:#111;">Feedback</a></li>
+          <li id="org-link" style="display:none;"><a href="organization-register.html" style="padding:8px 10px;color:#111;">Register Organization</a></li>
+          <li id="auth-link"><a href="login.html" style="padding:8px 10px;color:#111;">Login</a></li>
+        </ul>
+        <button id="nav-toggle" class="vc-hamburger" aria-label="Open navigation" style="border:none;background:#eef2f7;padding:8px 10px;border-radius:10px;cursor:pointer;display:none;">☰</button>
+      </nav>
+    </div>
+  </header>
+
+<main style="min-height:calc(100dvh - 64px);display:flex;align-items:center;justify-content:center;padding:24px;">
+  <div style="width:100%;max-width:560px;background:#fff;border-radius:18px;box-shadow:0 14px 42px rgba(0,0,0,.12);padding:26px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px;">
+      <a href="index.html" style="text-decoration:none;display:inline-flex;align-items:center;gap:10px;">
+        <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:#e8f2ff;color:#2a62ff;font-weight:700;">OD</span>
+        <span style="font-weight:700;color:#111;">online donation</span>
+      </a>
+      <p style="margin:0;color:#556;font-size:14px;">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+
+    <h1 style="margin:0 0 8px 0;font-size:24px;">Create your account</h1>
+    <p style="margin:0 0 18px 0;color:#556;line-height:1.5;">Join our donor and NGO community. Receivers will be verified by staff before campaigns go live.</p>
+
+    <form id="registerForm">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+        <div>
+          <label for="userType" style="display:block;margin-bottom:6px;color:#223;">User Type</label>
+          <select id="userType" required style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;">
+            <option value="">Select...</option>
+            <option value="Donor">Donor</option>
+            <option value="Receiver">Receiver</option>
+            <option value="NGO">NGO</option>
+            <option value="Staff">Staff</option>
+          </select>
+          <small style="display:block;margin-top:6px;color:#667;">Receivers and NGOs will be verified by staff before going live.</small>
+        </div>
+
+        <!-- Person fields -->
+        <div id="personFields" style="display:contents;">
+          <div>
+            <label for="username" style="display:block;margin-bottom:6px;color:#223;">Full Name</label>
+            <input type="text" id="username" placeholder="e.g., Aditi Sharma" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+          </div>
+          <div>
+            <label for="email" style="display:block;margin-bottom:6px;color:#223;">Email</label>
+            <input type="email" id="email" placeholder="name@example.com" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+          </div>
+          <div>
+            <label for="phone" style="display:block;margin-bottom:6px;color:#223;">Phone</label>
+            <input type="text" id="phone" placeholder="+91 90000 00000" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+          </div>
+          <div>
+            <label for="age" style="display:block;margin-bottom:6px;color:#223;">Age</label>
+            <input type="number" id="age" min="1" placeholder="Age" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+          </div>
+          <div style="grid-column:1 / -1;">
+            <label for="address" style="display:block;margin-bottom:6px;color:#223;">Address</label>
+            <input type="text" id="address" placeholder="Street, City, State" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+          </div>
+        </div>
+
+        <!-- NGO fields -->
+        <div id="ngoFields" style="display:none;grid-column:1 / -1;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+            <div>
+              <label for="ngoName" style="display:block;margin-bottom:6px;color:#223;">NGO Name</label>
+              <input type="text" id="ngoName" placeholder="e.g., Helping Hands Trust" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+            </div>
+            <div>
+              <label for="email" style="display:block;margin-bottom:6px;color:#223;">Official Email</label>
+              <input type="email" id="email" placeholder="ngo@example.org" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+            </div>
+            <div>
+              <label for="phone" style="display:block;margin-bottom:6px;color:#223;">Contact Phone</label>
+              <input type="text" id="phone" placeholder="+91 9XXXXXXXXX" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+            </div>
+            <div>
+              <label for="ngoRegistration" style="display:block;margin-bottom:6px;color:#223;">Registration Number</label>
+              <input type="text" id="ngoRegistration" placeholder="e.g., 12A/80G/CSR/..." style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+            </div>
+            <div style="grid-column:1 / -1;">
+              <label for="ngoAddress" style="display:block;margin-bottom:6px;color:#223;">NGO Address</label>
+              <input type="text" id="ngoAddress" placeholder="Head office address" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+            </div>
+            <div style="grid-column:1 / -1;">
+              <label style="display:block;margin-bottom:6px;color:#223;">NGO Causes</label>
+              <div style="border:1px solid #e5e7eb;border-radius:12px;padding:10px;">
+                <div id="ngoCausesChips" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+                  <span style="color:#889;">Select one or more causes</span>
+                </div>
+                <button type="button" id="causePickerToggle" style="padding:8px 12px;border:1px solid #2a62ff;border-radius:999px;background:rgba(42,98,255,0.08);color:#2a62ff;cursor:pointer;">Choose causes</button>
+                <div id="causePickerMenu" style="display:none;margin-top:10px;border:1px solid #e0e6f0;border-radius:12px;padding:10px;background:#f9fbff;max-height:220px;overflow:auto;">
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Children" class="cause-option" /> Children</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Education" class="cause-option" /> Education</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Health" class="cause-option" /> Health</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Elderly" class="cause-option" /> Elderly</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Disaster Relief" class="cause-option" /> Disaster Relief</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Animals" class="cause-option" /> Animals</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Environment" class="cause-option" /> Environment</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Livelihood" class="cause-option" /> Livelihood</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Women Empowerment" class="cause-option" /> Women Empowerment</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Water & Sanitation" class="cause-option" /> Water & Sanitation</label>
+                  <label style="display:block;margin-bottom:6px;"><input type="checkbox" value="Food Security" class="cause-option" /> Food Security</label>
+                </div>
+                <input type="hidden" id="ngoCauses" />
+              </div>
+            </div>
+            <div>
+              <label for="ngoWebsite" style="display:block;margin-bottom:6px;color:#223;">Website (optional)</label>
+              <input type="url" id="ngoWebsite" placeholder="https://example.org" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+            </div>
+            <div>
+              <label for="ngoContact" style="display:block;margin-bottom:6px;color:#223;">Contact Person (optional)</label>
+              <input type="text" id="ngoContact" placeholder="Name of contact person" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+            </div>
+          </div>
+        </div>
+
+        <div style="grid-column:1 / -1;">
+          <label for="profilePhoto" style="display:block;margin-bottom:6px;color:#223;">Profile Photo (optional)</label>
+          <div style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="flex:1;">
+              <input type="file" id="profilePhoto" accept="image/*" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+              <small style="display:block;margin-top:4px;color:#667;">JPG, PNG, or GIF (max 5MB)</small>
+            </div>
+            <img id="photoPreview" style="display:none;width:60px;height:60px;border-radius:10px;object-fit:cover;border:2px solid #e5e7eb;" alt="preview" />
+          </div>
+        </div>
+
+        <div style="grid-column:1 / -1;">
+          <label for="password" style="display:block;margin-bottom:6px;color:#223;">Password</label>
+          <div style="position:relative;">
+            <input type="password" id="password" required minlength="6" placeholder="Min 6 characters" style="width:100%;padding:10px 40px 10px 12px;border:1px solid #e5e7eb;border-radius:10px;outline:none;" />
+            <button type="button" id="togglePwd" aria-label="Show password" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);border:none;background:transparent;cursor:pointer;color:#667;">👁</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- <label style="display:flex;align-items:center;gap:8px;margin:18px 0 0 0;color:#445;font-size:14px;">
+        <input type="checkbox" id="termsCheck" required style="accent-color:#2a62ff;" />
+        I agree to the terms and privacy policy.
+      </label> -->
+
+      <button type="submit" style="margin-top:16px;width:100%;padding:12px 16px;border:none;border-radius:999px;background:#2a62ff;color:#fff;font-weight:600;cursor:pointer;">Create Account</button>
+      <p id="registerError" class="alert" style="margin:12px 0 0 0;color:#c00;"></p>
+    </form>
+  </div>
+</main>
+
+<script>
+  const toggle = document.getElementById('togglePwd');
+  const pwd = document.getElementById('password');
+  if (toggle && pwd) {
+    toggle.addEventListener('click', () => {
+      const show = pwd.getAttribute('type') === 'password' ? 'text' : 'password';
+      pwd.setAttribute('type', show);
+      toggle.textContent = show === 'password' ? '👁' : '🙈';
+      toggle.setAttribute('aria-label', show === 'password' ? 'Show password' : 'Hide password');
+    });
+  }
+
+  // Toggle fields for NGO vs Person
+  const typeSel = document.getElementById('userType');
+  const person = document.getElementById('personFields');
+  const ngo = document.getElementById('ngoFields');
+  const hiddenCausesInput = document.getElementById('ngoCauses');
+  const chipsWrap = document.getElementById('ngoCausesChips');
+  const toggleCauseBtn = document.getElementById('causePickerToggle');
+  const causeMenu = document.getElementById('causePickerMenu');
+  const causeOptions = Array.from(document.querySelectorAll('.cause-option'));
+  let selectedCauses = [];
+
+  function renderCauseChips() {
+    chipsWrap.innerHTML = '';
+    if (!selectedCauses.length) {
+      const span = document.createElement('span');
+      span.style.color = '#889';
+      span.textContent = 'Select one or more causes';
+      chipsWrap.appendChild(span);
+    } else {
+      selectedCauses.forEach((cause) => {
+        const chip = document.createElement('span');
+        chip.textContent = cause;
+        chip.style.padding = '6px 10px';
+        chip.style.borderRadius = '999px';
+        chip.style.background = '#e8f2ff';
+        chip.style.color = '#2a62ff';
+        chipsWrap.appendChild(chip);
+      });
+    }
+    hiddenCausesInput.value = selectedCauses.join(', ');
+  }
+  renderCauseChips();
+
+  function syncCheckboxes() {
+    causeOptions.forEach(opt => {
+      opt.checked = selectedCauses.includes(opt.value);
+    });
+  }
+
+  toggleCauseBtn?.addEventListener('click', () => {
+    const visible = causeMenu.style.display === 'block';
+    causeMenu.style.display = visible ? 'none' : 'block';
+  });
+
+  causeOptions.forEach(opt => {
+    opt.addEventListener('change', () => {
+      if (opt.checked) {
+        if (!selectedCauses.includes(opt.value)) selectedCauses.push(opt.value);
+      } else {
+        selectedCauses = selectedCauses.filter(c => c !== opt.value);
+      }
+      renderCauseChips();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!causeMenu.contains(e.target) && e.target !== toggleCauseBtn) {
+      causeMenu.style.display = 'none';
+    }
+  });
+  function applyTypeUI() {
+    const t = typeSel.value;
+    if (t === 'NGO') {
+      person.style.display = 'none';
+      ngo.style.display = 'block';
+      // set requireds
+      document.getElementById('ngoName').required = true;
+      document.getElementById('ngoAddress').required = true;
+      document.getElementById('ngoCauses').required = true;
+      document.getElementById('username').required = false;
+      document.getElementById('address').required = false;
+      document.getElementById('age').required = false;
+      syncCheckboxes();
+    } else {
+      person.style.display = 'contents';
+      ngo.style.display = 'none';
+      document.getElementById('ngoName').required = false;
+      document.getElementById('ngoAddress').required = false;
+      document.getElementById('ngoCauses').required = false;
+      document.getElementById('username').required = true;
+    }
+  }
+  typeSel.addEventListener('change', applyTypeUI);
+  applyTypeUI();
+
+  // Photo preview
+  const photoInput = document.getElementById('profilePhoto');
+  const photoPreview = document.getElementById('photoPreview');
+  if (photoInput && photoPreview) {
+    photoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          photoPreview.src = event.target.result;
+          photoPreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        photoPreview.style.display = 'none';
+      }
+    });
+  }
+</script>
+<script src="js/register.js"></script>
+</body>
+</html>

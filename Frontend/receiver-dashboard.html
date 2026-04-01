@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Receiver Dashboard — online donation</title>
+  <link rel="stylesheet" href="css/style-new.css" />
+</head>
+<body style="background:#f5f7fb;">
+
+<header class="vc-header" style="position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);box-shadow:0 2px 18px rgba(0,0,0,.08);">
+  <div class="vc-container header-inner" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0;">
+    <a class="vc-brand" href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:#e8f2ff;color:#2a62ff;font-weight:700;">OD</span>
+      <span class="vc-logo-text" style="font-weight:700;color:#111;">online donation</span>
+    </a>
+    <nav class="vc-nav" style="display:flex;align-items:center;gap:12px;">
+      <ul style="display:flex;align-items:center;gap:16px;list-style:none;margin:0;padding:0;">
+        <li><a href="feedback.html" style="padding:8px 10px;color:#111;">Feedback</a></li>
+        <li><a href="#" id="logoutBtn" style="padding:8px 10px;color:#c00;">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="vc-container" style="padding:28px 0 60px 0;">
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:20px;">
+    <article class="vc-card" style="padding:18px;border-radius:16px;background:#fff;box-shadow:0 12px 28px rgba(0,0,0,.06);">
+      <div style="color:#556;font-size:14px;">Welcome</div>
+      <h2 style="margin:6px 0 0 0;"><span id="username"></span></h2>
+      <div style="margin-top:10px;color:#667;font-size:14px;">Donations Received</div>
+    </article>
+    <article class="vc-card" style="padding:18px;border-radius:16px;background:#fff;box-shadow:0 12px 28px rgba(0,0,0,.06);">
+      <div style="color:#556;font-size:14px;">Total Received</div>
+      <h2 id="metric-total" style="margin:6px 0 0 0;">—</h2>
+      <small style="color:#778;">Sum of received donations</small>
+    </article>
+    <article class="vc-card" style="padding:18px;border-radius:16px;background:#fff;box-shadow:0 12px 28px rgba(0,0,0,.06);">
+      <div style="color:#556;font-size:14px;">Donations Count</div>
+      <h2 id="metric-count" style="margin:6px 0 0 0;">—</h2>
+      <small style="color:#778;">Number of donations</small>
+    </article>
+  </section>
+
+  <section>
+    <header style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <h3 style="margin:0;">Recent Donations</h3>
+      <button id="refreshDonations" class="btn btn-ghost" style="padding:8px 12px;border-radius:999px;">Refresh</button>
+    </header>
+    <div id="donationsList" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+      <article class="vc-card" style="padding:16px;border-radius:16px;background:#fff;box-shadow:0 12px 24px rgba(0,0,0,.05);">
+        <p style="margin:0;color:#778;">Loading donations...</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<script src="js/receiver-dashboard.js"></script>
+</body>
+</html>

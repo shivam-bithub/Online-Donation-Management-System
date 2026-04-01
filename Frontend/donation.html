@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Make a Donation — Online Donation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f7fafc;
+      color: #111;
+    }
+
+    /* HEADER */
+    .vc-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 5%;
+    }
+
+    .vc-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .vc-brand span[aria-hidden="true"] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #e8f2ff;
+      color: #2a62ff;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .vc-logo-text {
+      font-weight: 700;
+      color: #111;
+      font-size: 18px;
+    }
+
+    .vc-nav ul {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .vc-nav a {
+      color: #333;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .vc-nav a:hover {
+      background: #e8f2ff;
+      color: #1e40ff;
+    }
+
+    /* MAIN LAYOUT */
+    main {
+      padding: 32px 5% 60px 5%;
+    }
+
+    section {
+      display: grid;
+      grid-template-columns: 2fr 0.8fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* CARD */
+    .vc-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      padding: 24px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .vc-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    p {
+      margin: 0 0 16px 0;
+      color: #555;
+    }
+
+    /* FORM */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 10px 12px;
+      border: 1.5px solid #d0d7de;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fafbfc;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      background: #fff;
+    }
+
+    button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    button:hover {
+      background: #1e40ff;
+      transform: translateY(-1px);
+    }
+
+    #donationStatus {
+      margin-top: 16px;
+      font-weight: 500;
+      color: #2563eb;
+    }
+
+    /* Dynamic recipient dropdown */
+    #recipientContainer {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ASIDE */
+    aside h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    aside ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    aside div {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f1f5ff;
+      color: #445;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="vc-header">
+    <div class="vc-container header-inner">
+      <a class="vc-brand" href="index.html">
+        <span aria-hidden="true">OD</span>
+        <span class="vc-logo-text">Online Donation</span>
+      </a>
+      <nav class="vc-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="donor-dashboard.html">My Donations</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="vc-container">
+    <section>
+      <article class="vc-card">
+        <h2>Make a Donation</h2>
+        <p>Your gift supports verified NGOs and urgent causes.</p>
+
+        <form id="donationForm">
+          <label for="donorName">Donor Name</label>
+          <input type="text" id="donorName" readonly placeholder="Your name" />
+
+          <label for="amount">Donation Amount (₹) *</label>
+          <input type="number" id="amount" min="1" required placeholder="Enter amount" />
+
+          <label for="paymentMethod">Payment Method *</label>
+          <select id="paymentMethod" required>
+            <option value="">Select Payment Method</option>
+            <option value="UPI">UPI</option>
+            <option value="Debit/Credit Card">Debit/Credit Card</option>
+            <option value="Net Banking">Net Banking</option>
+          </select>
+
+          <label for="forDonation">Select for donation *</label>
+          <select id="forDonation" name="forDonation" required>
+            <option value="">Select for donation</option>
+            <option value="Ngo">NGO</option>
+            <option value="Receiver">Receiver</option>
+          </select>
+
+          <!-- Dynamic recipient dropdown -->
+          <div id="recipientContainer">
+            <label for="recipient">Select NGO/Receiver *</label>
+            <select id="recipient" name="recipient" required>
+              <option value="">Select...</option>
+            </select>
+          </div>
+
+          <label for="message">Message (Optional)</label>
+          <textarea id="message" rows="4" placeholder="Leave a note for the cause..."></textarea>
+
+          <button type="submit" class="btn btn-primary">Donate Now</button>
+        </form>
+
+        <div id="donationStatus"></div>
+      </article>
+
+      <aside class="vc-card">
+        <h3>Why Your Gift Matters</h3>
+        <ul>
+          <li>Supports verified NGOs and campaigns</li>
+          <li>Transparent usage and reporting</li>
+          <li>Helps provide food, education, and relief</li>
+        </ul>
+        <div>💡 Tip: Donating monthly creates sustained impact.</div>
+      </aside>
+    </section>
+  </main>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const forDonation = document.getElementById("forDonation");
+  const recipientContainer = document.getElementById("recipientContainer");
+  const recipientSelect = document.getElementById("recipient");
+  const donationForm = document.getElementById("donationForm");
+  const donationStatus = document.getElementById("donationStatus");
+  const donorNameInput = document.getElementById("donorName");
+
+  // ✅ Always show the recipient dropdown by default
+  recipientContainer.style.display = "block";
+  recipientSelect.innerHTML = '<option value="">Select NGO/Receiver (optional)</option>';
+
+  // 🧭 Backend API URL
+  const BASE_URL = "http://localhost:3000/api";
+
+  // 🔹 Get token from localStorage (if logged in)
+  const token = localStorage.getItem("token");
+
+  // 🔹 Fetch donor name (optional)
+  try {
+    const res = await fetch(`${BASE_URL}/auth/me`, {
+      headers: { Authorization: `${token}` }
+    });
+    if (res.ok) {
+      const user = await res.json();
+      donorNameInput.value = user.username || "";
+    }
+  } catch (err) {
+    console.warn("Could not load donor info:", err);
+  }
+
+  // 🔹 Load real NGOs/Receivers from backend (no dummy data)
+  let ngos = [];
+  let receivers = [];
+
+  try {
+    // Fetch NGOs from backend
+    const ngoRes = await fetch(`${BASE_URL}/donation/ngos`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {}
+    });
+    if (ngoRes.ok) {
+      ngos = await ngoRes.json();
+      console.log('Loaded NGOs from DB:', ngos);
+    } else {
+      console.warn('Failed to fetch NGOs:', ngoRes.statusText);
+    }
+
+    // Fetch Receivers from backend
+    const recvRes = await fetch(`${BASE_URL}/donation/receivers`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {}
+    });
+    if (recvRes.ok) {
+      receivers = await recvRes.json();
+      console.log('Loaded Receivers from DB:', receivers);
+    } else {
+      console.warn('Failed to fetch Receivers:', recvRes.statusText);
+    }
+  } catch (err) {
+    console.error("Error fetching recipients from database:", err);
+  }
+
+    // ✅ Update dropdown dynamically when user selects "Ngo" or "Receiver"
+  forDonation.addEventListener("change", () => {
+    const value = forDonation.value;
+    recipientSelect.innerHTML = '<option value="">Select NGO/Receiver...</option>';
+
+    if (value === "Ngo") {
+      if (ngos.length === 0) {
+        recipientSelect.innerHTML = '<option value="">No NGOs available in database</option>';
+        donationStatus.textContent = "⚠️ No NGOs available at the moment.";
+        donationStatus.style.color = "#f59e0b";
+      } else {
+        ngos.forEach((ngo) => {
+          const opt = document.createElement("option");
+          opt.value = ngo._id || ngo.id;
+          opt.textContent = `${ngo.name}${ngo.email ? ` (${ngo.email})` : ''}`;
+          recipientSelect.appendChild(opt);
+        });
+        donationStatus.textContent = "You're donating to a verified NGO 🏢";
+        donationStatus.style.color = "#2563eb";
+      }
+    } else if (value === "Receiver") {
+      if (receivers.length === 0) {
+        recipientSelect.innerHTML = '<option value="">No Receivers available in database</option>';
+        donationStatus.textContent = "⚠️ No Receivers available at the moment.";
+        donationStatus.style.color = "#f59e0b";
+      } else {
+        receivers.forEach((rec) => {
+          const opt = document.createElement("option");
+          opt.value = rec._id || rec.id;
+          opt.textContent = `${rec.username}${rec.email ? ` (${rec.email})` : ''}`;
+          recipientSelect.appendChild(opt);
+        });
+        donationStatus.textContent = "You're donating directly to a receiver 🙌";
+        donationStatus.style.color = "#16a34a";
+      }
+    } else {
+      donationStatus.textContent = "";
+    }
+  });
+
+  // ✅ Handle form submission
+  donationForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const amount = document.getElementById("amount").value;
+    const paymentMethod = document.getElementById("paymentMethod").value;
+    const forDonationVal = document.getElementById("forDonation").value;
+    const message = document.getElementById("message").value;
+    const recipientId = recipientSelect.value;
+
+    if (!token) {
+      donationStatus.textContent = "⚠️ You must be logged in to donate.";
+      donationStatus.style.color = "red";
+      return;
+    }
+
+    const body = {
+      amount: Number(amount),
+      paymentMethod,
+      message,
+      forDonation: forDonationVal || "Ngo", // default type if not selected
+    };
+
+    // ✅ Add IDs only if provided
+    if (forDonationVal === "Ngo" && recipientId) body.ngoId = recipientId;
+    if (forDonationVal === "Receiver" && recipientId) body.receiverId = recipientId;
+
+    try {
+      const response = await fetch(`${BASE_URL}/donation`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        donationStatus.textContent = "✅ Donation successful!";
+        donationStatus.style.color = "green";
+        donationForm.reset();
+        recipientContainer.style.display = "block";
+        recipientSelect.innerHTML = '<option value="">Select NGO/Receiver (optional)</option>';
+      } else {
+        donationStatus.textContent = `❌ ${result.message || result.error}`;
+        donationStatus.style.color = "red";
+      }
+    } catch (error) {
+      console.error("Error submitting donation:", error);
+      donationStatus.textContent = "❌ Network or server error.";
+      donationStatus.style.color = "red";
+    }
+  });
+});
+</script>
+</body>
+</html>
+
+        { name: "   ", cause: "" },
+        { name: "   ", cause: "" },
+      ];
+  try {
+    const ngoRes = await fetch(`${BASE_URL}/organizations`);
+const recvRes = await fetch(`${BASE_URL}/receivers`);
+
+    ngos = await ngoRes.json();
+    receivers = await recvRes.json();
+  } catch (err) {
+    console.error("Error fetching recipients:", err);
+  }
+
+  // ✅ Update dropdown dynamically when user selects "Ngo" or "Receiver"
+  forDonation.addEventListener("change", () => {
+    const value = forDonation.value;
+    recipientSelect.innerHTML = '<option value="">Select NGO/Receiver (optional)</option>';
+
+    if (value === "Ngo") {
+      ngos.forEach((ngo) => {
+        const opt = document.createElement("option");
+        opt.value = ngo._id;
+        opt.textContent = `${ngo.name} (${ngo.registrationNumber})`;
+        recipientSelect.appendChild(opt);
+      });
+      donationStatus.textContent = "You’re donating to a verified NGO 🏢";
+      donationStatus.style.color = "#2563eb";
+    } else if (value === "Receiver") {
+      receivers.forEach((rec) => {
+        const opt = document.createElement("option");
+        opt.value = rec._id;
+        opt.textContent = `${rec.username} (${rec.email})`;
+        recipientSelect.appendChild(opt);
+      });
+      donationStatus.textContent = "You’re donating directly to a receiver 🙌";
+      donationStatus.style.color = "#16a34a";
+    } else {
+      donationStatus.textContent = "";
+    }
+  });
+
+  // ✅ Handle form submission
+  donationForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const amount = document.getElementById("amount").value;
+    const paymentMethod = document.getElementById("paymentMethod").value;
+    const forDonationVal = document.getElementById("forDonation").value;
+    const message = document.getElementById("message").value;
+    const recipientId = recipientSelect.value;
+
+    if (!token) {
+      donationStatus.textContent = "⚠️ You must be logged in to donate.";
+      donationStatus.style.color = "red";
+      return;
+    }
+
+    const body = {
+      amount: Number(amount),
+      paymentMethod,
+      message,
+      forDonation: forDonationVal || "Ngo", // default type if not selected
+    };
+
+    // ✅ Add IDs only if provided
+    if (forDonationVal === "Ngo" && recipientId) body.ngoId = recipientId;
+    if (forDonationVal === "Receiver" && recipientId) body.receiverId = recipientId;
+
+    try {
+      const response = await fetch(`${BASE_URL}/donations`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        donationStatus.textContent = "✅ Donation successful!";
+        donationStatus.style.color = "green";
+        donationForm.reset();
+        // keep dropdown visible after reset
+        recipientContainer.style.display = "block";
+        recipientSelect.innerHTML = '<option value="">Select NGO/Receiver (optional)</option>';
+      } else {
+        donationStatus.textContent = `❌ ${result.message || result.error}`;
+        donationStatus.style.color = "red";
+      }
+    } catch (error) {
+      console.error("Error submitting donation:", error);
+      donationStatus.textContent = "❌ Network or server error.";
+      donationStatus.style.color = "red";
+    }
+  });
+});
+</script> -->
+
+  <!-- <script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const forDonation = document.getElementById("forDonation");
+  const recipientContainer = document.getElementById("recipientContainer");
+  const recipientSelect = document.getElementById("recipient");
+  const donationForm = document.getElementById("donationForm");
+  const donationStatus = document.getElementById("donationStatus");
+  const donorNameInput = document.getElementById("donorName");
+
+  // TODO: Set your backend base URL here:
+  const BASE_URL = "http://localhost:3000/api";  // Example
+
+  // 🔹 Example: Load donor info from localStorage (if token saved after login)
+  const token = localStorage.getItem("token");
+
+  // 🔹 Fetch the donor name (optional, if backend route exists)
+  try {
+    const res = await fetch(`${BASE_URL}/auth/me`, {
+      headers: { Authorization: `${token}` }
+    });
+    if (res.ok) {
+      const user = await res.json();
+      donorNameInput.value = user.username || "";
+    }
+  } catch (err) {
+    console.warn("Could not load donor info:", err);
+  }
+
+  // 🔹 Load NGO and receiver lists from backend
+  let ngos = [];
+  let receivers = [];
+  try {
+    const ngoRes = await fetch(`${BASE_URL}/organization`);
+    const recvRes = await fetch(`${BASE_URL}/users?type=Receiver`);
+    ngos = await ngoRes.json();
+    receivers = await recvRes.json();
+  } catch (err) {
+    console.error("Error fetching recipients:", err);
+  }
+
+  forDonation.addEventListener("change", () => {
+    const value = forDonation.value;
+    recipientSelect.innerHTML = '<option value="">Select...</option>';
+
+    if (value === "Ngo") {
+      recipientContainer.style.display = "block";
+      ngos.forEach((ngo) => {
+        const opt = document.createElement("option");
+        opt.value = ngo._id; // use real MongoDB ID
+        opt.textContent = `${ngo.name} (${ngo.registrationNumber})`;
+        recipientSelect.appendChild(opt);
+      });
+      donationStatus.textContent = "You’re donating to a verified NGO 🏢";
+      donationStatus.style.color = "#2563eb";
+    } else if (value === "Receiver") {
+      recipientContainer.style.display = "block";
+      receivers.forEach((rec) => {
+        const opt = document.createElement("option");
+        opt.value = rec._id;
+        opt.textContent = `${rec.username} (${rec.email})`;
+        recipientSelect.appendChild(opt);
+      });
+      donationStatus.textContent = "You’re donating directly to a receiver 🙌";
+      donationStatus.style.color = "#16a34a";
+    } else {
+      recipientContainer.style.display = "none";
+      donationStatus.textContent = "";
+    }
+  });
+
+  // 🔹 Handle form submission
+  donationForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const amount = document.getElementById("amount").value;
+    const paymentMethod = document.getElementById("paymentMethod").value;
+    const forDonationVal = document.getElementById("forDonation").value;
+    const message = document.getElementById("message").value;
+    const recipientId = recipientSelect.value;
+
+    if (!token) {
+      donationStatus.textContent = "⚠️ You must be logged in to donate.";
+      donationStatus.style.color = "red";
+      return;
+    }
+
+    const body = {
+      amount: Number(amount),
+      paymentMethod,
+      message,
+      forDonation: forDonationVal,
+    };
+
+    if (forDonationVal === "Ngo") body.ngoId = recipientId;
+    if (forDonationVal === "Receiver") body.receiverId = recipientId;
+
+    try {
+      const response = await fetch(`${BASE_URL}/donations`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        donationStatus.textContent = "✅ Donation successful!";
+        donationStatus.style.color = "green";
+        donationForm.reset();
+        recipientContainer.style.display = "none";
+      } else {
+        donationStatus.textContent = `❌ ${result.message || result.error}`;
+        donationStatus.style.color = "red";
+      }
+    } catch (error) {
+      console.error("Error submitting donation:", error);
+      donationStatus.textContent = "❌ Network or server error.";
+      donationStatus.style.color = "red";
+    }
+  });
+});
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const forDonation = document.getElementById("forDonation");
+      const recipientContainer = document.getElementById("recipientContainer");
+      const recipientSelect = document.getElementById("recipient");
+      const donationStatus = document.getElementById("donationStatus");
+
+      const ngos = [
+        { name: "Helping Hands NGO", cause: "Child Education" },
+        { name: "Green Earth Foundation", cause: "Environmental Protection" },
+        { name: "Health4All", cause: "Medical Aid" },
+        { name: "   ", cause: "" },
+        { name: "   ", cause: "" },
+      ];
+
+      const receivers = [
+        { name: "Ravi Kumar", cause: "" },
+        { name: "Asha Devi", cause: "" },
+        { name: "Mohan Das", cause: "" },
+        { name: "   ", cause: "" },
+        { name: "   ", cause: "" },
+      ];
+
+      forDonation.addEventListener("change", () => {
+        const value = forDonation.value;
+        recipientSelect.innerHTML = '<option value="">Select...</option>';
+
+        if (value === "Ngo") {
+          recipientContainer.style.display = "block";
+          ngos.forEach((ngo) => {
+            const opt = document.createElement("option");
+            opt.value = ngo.name;
+            opt.textContent = `${ngo.name} — ${ngo.cause}`;
+            recipientSelect.appendChild(opt);
+          });
+          donationStatus.textContent = "You’re donating to a verified NGO 🏢";
+          donationStatus.style.color = "#2563eb";
+        } else if (value === "Receiver") {
+          recipientContainer.style.display = "block";
+          receivers.forEach((rec) => {
+            const opt = document.createElement("option");
+            opt.value = rec.name;
+            opt.textContent = `${rec.name} — ${rec.cause}`;
+            recipientSelect.appendChild(opt);
+          });
+          donationStatus.textContent = "You’re donating directly to a receiver 🙌";
+          donationStatus.style.color = "#16a34a";
+        } else {
+          recipientContainer.style.display = "none";
+          donationStatus.textContent = "";
+        }
+      });
+    });
+  </script>  -->
+</body>
+</html>
